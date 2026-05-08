@@ -33,9 +33,9 @@ Here's a quick and naive example in Svelte using an attachment:
 <div {@attach viewTransition('title')}>...</div>
 ```
 
-And honestly, this works well, though it lacks proper clean-up.
+Honestly, this works decently, although it lacks proper clean-up.
 
-But once you start doing this for multiple elements across different pages, things get repetitive real fast. Every element creates its own observer, clean-up logic gets duplicated, and the whole thing becomes harder to maintain.
+And once you start doing this for multiple elements across different pages, things get repetitive real fast. Every element creates its own observer, clean-up logic gets duplicated, and the whole thing becomes harder to maintain.
 
 A better approach is creating a utility that:
 
@@ -82,15 +82,13 @@ The utility we'll care about, called `leaveView`, is a small general-purpose att
 </div>
 ```
 
-And because the utility internally reuses observers, you also get a few nice bonuses for free:
+And because of the utility internal logic, you also get a few nice bonuses for free:
 
-- one shared observer for elements using the same options
-- cleanup handling
+- one shared observer for your elements
+- clean-up handling
 - observer disconnection once nothing is being observed anymore
 
-That said, `leaveView` is still intentionally general-purpose. So for this specific View Transition use case, we can make the API even nicer.
-
-Something like this:
+That said, `leaveView` is still intentionally general-purpose. So for this specific View Transition use case, how about we trying to make the API even nicer? Something like:
 
 ```ts
 // dom.ts
