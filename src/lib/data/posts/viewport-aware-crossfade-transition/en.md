@@ -21,12 +21,14 @@ Here's a quick and naive example in Svelte using an attachment:
 
 ```svelte
 <script lang="ts">
-	function viewTransition(node: HTMLElement, name: string) {
+	function viewTransition(name: string): Attachment<HTMLElement> {
 		const observer = new IntersectionObserver(([entry]) => {
 			node.style.viewTransitionName = entry?.isIntersecting ? name : 'none';
 		});
-		observer.observe(node);
-		return () => observer.disconnect();
+		return (node) => {
+			observer.observe(node);
+			return () => observer.disconnect();
+		};
 	}
 </script>
 
@@ -57,28 +59,35 @@ The utility we'll care about, called `leaveView`, is a small general-purpose att
 
 ```svelte
 <script lang="ts">
-    import { leaveView } from '@duydang2311/sveltecraft';
+	import { leaveView } from '@duydang2311/sveltecraft';
 </script>
 
 <!-- overload 1: leaveView(attachment) -->
-<div style:view-transition-name="post-title" {@attach leaveView((node: HTMLDivElement) => {
-    node.style.viewTransitionName = 'none';
-    return () => {
-        node.style.viewTransitionName = 'post-title';
-    };
-})}>
-    ...
+<div
+	style:view-transition-name="post-title"
+	{@attach leaveView((node: HTMLDivElement) => {
+		node.style.viewTransitionName = 'none';
+		return () => {
+			node.style.viewTransitionName = 'post-title';
+		};
+	})}
+>
+	...
 </div>
 
 <!-- overload 2: leaveView(node, attachment) -->
 <!-- better typescript type inferrence -->
-<div style:view-transition-name="post-title" {@attach node => leaveView(node, node => {
-    node.style.viewTransitionName = 'none';
-    return () => {
-        node.style.viewTransitionName = 'post-title';
-    };
-})}>
-    ...
+<div
+	style:view-transition-name="post-title"
+	{@attach (node) =>
+		leaveView(node, (node) => {
+			node.style.viewTransitionName = 'none';
+			return () => {
+				node.style.viewTransitionName = 'post-title';
+			};
+		})}
+>
+	...
 </div>
 ```
 
@@ -94,7 +103,7 @@ That said, `leaveView` is still intentionally general-purpose. So for this speci
 // dom.ts
 export function viewTransition<T extends HTMLElement>(name: string): Attachment<T> {
 	return (node) => {
-	    // this won't be able to run during SSR or non-JS browser
+		// this won't be able to run during SSR or non-JS browser
 		// but guess what
 		// it's fine because View Transition API requires JS anyway
 		node.style.viewTransitionName = name;
@@ -110,7 +119,7 @@ export function viewTransition<T extends HTMLElement>(name: string): Attachment<
 
 ```svelte
 <script lang="ts">
-    import { viewTransition } from './dom';
+	import { viewTransition } from './dom';
 </script>
 
 <div {@attach viewTransition('post-title')}>...</div>
