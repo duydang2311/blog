@@ -1,7 +1,6 @@
 export interface PostMetadata {
 	data: {
 		matter: {
-			slug: string;
 			title: string;
 			author: string;
 			description: string;
@@ -47,16 +46,8 @@ export function getPostSlugs() {
 export function getPosts() {
 	const posts = Object.entries(
 		import.meta.glob('./data/posts/*/en.md', { eager: true, query: '?metadata' })
-	).reduce(
-		(acc, cur) => {
-			const slug = cur[0].split('/', 4)[3];
-			if (!slug) {
-				return acc;
-			}
-			acc[slug] = cur[1] as PostMetadata;
-			return acc;
-		},
-		{} as Record<string, PostMetadata>
-	);
+	)
+		.map((pair) => [pair[0].split('/', 4)[3], pair[1]] as [string, PostMetadata])
+		.toSorted((a, b) => (a[1].data.matter.publish_date > b[1].data.matter.publish_date ? -1 : 1));
 	return posts;
 }

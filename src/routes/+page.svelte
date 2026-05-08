@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { viewTransition } from '$lib/dom';
 	import { getPostsQuery } from './__page__/page.remote';
 
 	const posts = $derived(await getPostsQuery());
@@ -13,9 +14,9 @@
 					src="/favicon.svg"
 					alt="duydang pfp"
 					class="size-12 rounded-lg"
-					style:view-transition-name="app-pfp"
+					{@attach viewTransition('app-pfp')}
 				/>
-				<h1 class="text-4xl font-semibold text-fg-emph" style:view-transition-name="app-blog">
+				<h1 class="text-4xl font-semibold text-fg-emph" {@attach viewTransition('app-blog')}>
 					blog
 				</h1>
 			</div>
@@ -26,16 +27,19 @@
 		<div class="mt-16 max-md:text-center">
 			<p class="text-sm text-fg-muted">
 				<span>Latest posts</span>
-				<span class="ml-1 rounded-sm bg-base px-1.5">{Object.keys(posts).length}</span>
+				<span class="ml-1 rounded-sm bg-base px-1.5">{posts.length}</span>
 			</p>
-			<ol class="mt-2">
-				{#each Object.entries(posts) as [slug, post] (post.data.matter.title)}
+			<ol class="mt-4 space-y-4">
+				{#each posts as [slug, post] (post.data.matter.title)}
 					<li>
 						<a
 							href={resolve('/[slug]', { slug })}
 							class="group flex flex-col gap-x-4 md:flex-row md:items-center"
 						>
-							<p class="text-fg group-hover:text-fg-emph" style:view-transition-name="post-title">
+							<p
+								class="text-fg group-hover:text-fg-emph"
+								{@attach viewTransition(`post-slug-${slug}`)}
+							>
 								{post.data.matter.title}
 							</p>
 							<p class="text-sm text-fg-muted group-hover:text-fg-dim">

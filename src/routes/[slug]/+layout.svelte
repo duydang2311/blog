@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { viewTransition } from '$lib/dom';
 	import '@fontsource/dm-mono';
 
 	const { children } = $props();
@@ -12,9 +13,9 @@
 				src="/favicon.svg"
 				alt="duydang pfp"
 				class="size-6 rounded-md"
-				style:view-transition-name="app-pfp"
+				{@attach viewTransition('app-pfp')}
 			/>
-			<p class="font-display font-semibold text-fg-emph" style:view-transition-name="app-blog">
+			<p class="font-display font-semibold text-fg-emph" {@attach viewTransition('app-blog')}>
 				blog
 			</p>
 		</a>

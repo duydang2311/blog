@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { env } from '$env/dynamic/public';
+	import { viewTransition } from '$lib/dom';
 	import { getPostQuery } from './__page__/page.remote';
 
 	const post = $derived(await getPostQuery(page.params.slug!));
@@ -41,7 +42,10 @@
 		<div class="hidden flex-1 lg:block"></div>
 		<div class="mx-auto max-w-full">
 			<article class="prose">
-				<h1 class="mb-2! leading-none" style:view-transition-name="post-title">
+				<h1
+					class="mb-2! leading-none"
+					{@attach viewTransition(`post-slug-${post.data.matter.slug}`)}
+				>
 					{post.data.matter.title}
 				</h1>
 				<p class="not-prose text-sm text-fg-muted">
