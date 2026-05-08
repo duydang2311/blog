@@ -15,8 +15,6 @@ Therefore, I think only visible elements should participate in the transition.
 
 ## Viewport-aware View Transition
 
-A viewport-aware View Transition simply means: only elements currently visible in the viewport get to participate in the transition.
-
 The name sounds fancy, but the idea is actually super simple: temporarily disable view-transition-name once an element goes out of view. Thankfully, [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) makes it really easy.
 
 Here's a quick and naive example in Svelte using an attachment:
