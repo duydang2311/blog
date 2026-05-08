@@ -42,10 +42,7 @@
 		<div class="hidden flex-1 lg:block"></div>
 		<div class="mx-auto max-w-full">
 			<article class="prose">
-				<h1
-					class="mb-2! leading-none"
-					{@attach viewTransition(`post-slug-${post.data.matter.slug}`)}
-				>
+				<h1 class="mb-2! leading-none" {@attach viewTransition(`post-slug-${page.params.slug}`)}>
 					{post.data.matter.title}
 				</h1>
 				<p class="not-prose text-sm text-fg-muted">
