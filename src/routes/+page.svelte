@@ -6,6 +6,10 @@
 	const posts = $derived(await getPostsQuery());
 </script>
 
+<svelte:head>
+	<title>blog</title>
+</svelte:head>
+
 <main class="px-4 py-16">
 	<div class="mx-auto max-w-2xl">
 		<div class="flex flex-col md:flex-row md:items-center md:justify-between">

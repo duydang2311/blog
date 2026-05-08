@@ -19,8 +19,4 @@
 	});
 </script>
 
-<svelte:head>
-	<title>blog</title>
-</svelte:head>
-
 {@render children()}
