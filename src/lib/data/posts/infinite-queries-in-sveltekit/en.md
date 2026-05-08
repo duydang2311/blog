@@ -1,5 +1,4 @@
 ---
-slug: infinite-queries-in-sveltekit
 title: Infinite Queries in SvelteKit
 author: duyda
 description: Steps to implement infinite queries in SvelteKit using remote functions.
