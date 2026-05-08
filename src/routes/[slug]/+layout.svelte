@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import { viewTransition } from '$lib/dom';
 	import '@fontsource/dm-mono';
+	import '@fontsource-variable/geist-mono';
 
 	const { children } = $props();
 </script>
