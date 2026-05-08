@@ -55,7 +55,7 @@ export const getTodos = query(
 	async ({ limit, after }) => {
 		// if `after` is null, fetch the first `limit` items
 		// otherwise, fetch the next `limit` items after `after`
-		const items: Todo[] = queryTodosFromDB();
+		const items: Todo[] = await queryTodosFromDB();
 
 		// you typically also need to compute hasNext, hasPrevious
 		//
@@ -233,24 +233,18 @@ That means:
 
 #### Edge case: Flickering
 
-A flicker will happen when the last page is already full. For example, if the page size is 20 and the last page already contains 20 items, optimistically appending another item temporarily creates a 21 items page until the query refreshes.
+A brief flicker can occur when the last page is already full. This happens because the optimistic item is temporarily added, removed, and then added again once `loadMore()` runs.
 
-In practice, this usually works fine because the refreshed query will eventually move the new todo into the next actual page automatically. However, this can still cause a small flicker when the next page gets fetched.
+In most cases, this is harmless because the refreshed query will automatically move the new todo into the correct next page. However, we can make this more seamless and completely avoid the flicker.
 
-#### Edge case: Solution
-
-There is actually a cleaner way to handle this and completely avoid the flicker.
-
-Instead of temporarily shoving 21 items into a page that was originally fetched with a limit of 20, we can first transform the page into a 21-items page before applying the optimistic update.
-
-In other words, we adjust the page params ahead of time so the optimistic state already matches what the server will eventually return after revalidation.
+Instead of temporarily squeezing 21 items into a page that normally only holds 20, we can increase the page size first so the optimistic update already matches what the server will return later.
 
 The idea is:
 
 1. Clone the last query into a new query with `size + 1`.
-2. Copy the current query result into that larger query.
+2. Copy the current query result into the expanded query.
 3. Update the page params to use the larger size.
-4. Apply optimistic overrides normally.
+4. Apply optimistic overrides.
 5. Let the server re-fetch the expanded page afterward.
 
 ```svelte
