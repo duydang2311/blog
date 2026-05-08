@@ -103,7 +103,7 @@ export function viewTransition<T extends HTMLElement>(name: string): Attachment<
 		// it's fine because View Transition API requires JS anyway
 		node.style.viewTransitionName = name;
 		return leaveView(node, (node: T) => {
-			node.style.viewTransitionName = '';
+			node.style.viewTransitionName = 'none';
 			return () => {
 				node.style.viewTransitionName = name;
 			};
