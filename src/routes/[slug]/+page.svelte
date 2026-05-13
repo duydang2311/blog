@@ -6,8 +6,8 @@
 	import { viewTransition } from '$lib/dom';
 	import { getPostQuery, getRelatedPostsQuery } from './__page__/page.remote';
 
-	const post = $derived(await getPostQuery(page.params.slug!));
 	const relatedPostsQuery = $derived(getRelatedPostsQuery(page.params.slug!));
+	const post = $derived(await getPostQuery(page.params.slug!));
 
 	function clickHeading(e: MouseEvent) {
 		e.preventDefault();
