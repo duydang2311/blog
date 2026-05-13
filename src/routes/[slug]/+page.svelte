@@ -131,7 +131,7 @@
 					{/if}
 					{#if relatedPosts.newer}
 						<a
-							data-align-right={relatedPosts.older == null}
+							data-align-right={relatedPosts.older == null ? '' : undefined}
 							href={resolve('/[slug]', { slug: relatedPosts.newer.slug })}
 							class="flex items-center justify-end overflow-hidden text-sm text-fg-muted hover:text-fg-emph data-align-right:ml-auto"
 						>
