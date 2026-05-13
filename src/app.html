@@ -9,6 +9,17 @@
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)" />
+		<script>
+			let theme = '%app.theme%';
+			if (theme === 'system') {
+				theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+			}
+			if (theme === 'dark') {
+				document.documentElement.setAttribute('data-theme', theme);
+			} else {
+				document.documentElement.removeAttribute('data-theme');
+			}
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

@@ -35,6 +35,31 @@
 		font-size: 16px;
 		color: var(--color-fg);
 		background-color: var(--color-surface);
+
+		@variant dark {
+			--color-surface-1: oklch(100% 0 90);
+			--color-surface: oklch(20% 0 90);
+			--color-surface-subtle: oklch(24% 0 90);
+			--color-surface-emph: oklch(28% 0 90);
+			--color-surface-border: oklch(32% 0 90);
+
+			--color-base: oklch(30% 0 90);
+			--color-base-subtle: oklch(32% 0 90);
+			--color-base-emph: oklch(34% 0 90);
+			--color-base-border: oklch(36% 0 90);
+			--color-base-border-emph: oklch(40% 0 90);
+
+			--color-fg: oklch(74% 0 90);
+			--color-fg-emph: oklch(94% 0.01 90);
+			--color-fg-dim: oklch(62% 0 90);
+			--color-fg-muted: oklch(54% 0 90);
+
+			--color-primary: oklch(28% 0.04 90);
+			--color-primary-subtle: oklch(30% 0.06 90);
+			--color-primary-emph: oklch(32% 0.08 90);
+			--color-primary-border: oklch(34% 0.04 90);
+			--color-primary-fg: oklch(67% 0.14 80);
+		}
 	}
 
 	h1,
@@ -146,10 +171,15 @@
 	}
 }
 
+.shiki,
+.shiki span {
+	background-color: var(--color-surface-subtle) !important;
+}
+
 [data-theme='dark'] .shiki,
 [data-theme='dark'] .shiki span {
 	color: var(--shiki-dark) !important;
-	background-color: var(--shiki-dark-bg) !important;
+	/*background-color: var(--shiki-dark-bg) !important;*/
 	/* Optional, if you also want font styles */
 	font-style: var(--shiki-dark-font-style) !important;
 	font-weight: var(--shiki-dark-font-weight) !important;

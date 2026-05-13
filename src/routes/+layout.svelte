@@ -4,6 +4,7 @@
 	import './layout.css';
 
 	import { onNavigate } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	const { children } = $props();
 
@@ -15,6 +16,17 @@
 				resolve();
 				await navigation.complete;
 			});
+		});
+	});
+
+	onMount(() => {
+		const match = window.matchMedia('(prefers-color-scheme: dark)');
+		match.addEventListener('change', (e) => {
+			if (e.matches) {
+				document.documentElement.setAttribute('data-theme', 'dark');
+			} else {
+				document.documentElement.removeAttribute('data-theme');
+			}
 		});
 	});
 </script>

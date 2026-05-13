@@ -91,7 +91,7 @@
 			</article>
 		</div>
 		<div class="hidden flex-1 text-sm lg:block">
-			<div class="sticky top-8 mt-28 h-fit border-l border-l-surface-border pl-4">
+			<div class="sticky top-8 mt-28 h-fit pl-4">
 				<p class="font-display text-sm font-semibold text-fg-emph">On this page</p>
 				<ol class="mt-4 space-y-2">
 					{#each post.data.toc as item (item.id)}
