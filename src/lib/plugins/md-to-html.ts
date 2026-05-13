@@ -86,8 +86,8 @@ export function mdToHtml() {
 								const promise = codeToHast(value, {
 									lang,
 									themes: {
-										light: 'github-light',
-										dark: 'github-dark'
+										light: 'light-plus',
+										dark: 'dark-plus'
 									}
 								}).then((highlighted) => {
 									parent.children[index] = highlighted as unknown as Element;
