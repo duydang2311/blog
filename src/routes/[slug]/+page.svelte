@@ -1,10 +1,13 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { env } from '$env/dynamic/public';
+	import { IconChevronLeft, IconChevronRight } from '$lib/components/icons';
 	import { viewTransition } from '$lib/dom';
-	import { getPostQuery } from './__page__/page.remote';
+	import { getPostQuery, getRelatedPostsQuery } from './__page__/page.remote';
 
 	const post = $derived(await getPostQuery(page.params.slug!));
+	const relatedPostsQuery = $derived(getRelatedPostsQuery(page.params.slug!));
 
 	function clickHeading(e: MouseEvent) {
 		e.preventDefault();
@@ -38,7 +41,7 @@
 </svelte:head>
 
 <main>
-	<div class="flex gap-8 p-4 pb-8">
+	<div class="flex gap-8 p-4">
 		<div class="hidden flex-1 lg:block"></div>
 		<div class="mx-auto max-w-full">
 			<article class="prose">
@@ -109,3 +112,37 @@
 		</div>
 	</div>
 </main>
+<footer>
+	<div class="px-8">
+		<div class="mx-auto max-w-[65ch] border-t border-t-surface-border py-8">
+			{#if relatedPostsQuery.current}
+				{@const relatedPosts = relatedPostsQuery.current}
+				<div class="flex items-center justify-between gap-8">
+					{#if relatedPosts.older}
+						<a
+							href={resolve('/[slug]', { slug: relatedPosts.older.slug })}
+							class="flex items-center overflow-hidden text-sm text-fg-muted hover:text-fg-emph"
+						>
+							<IconChevronLeft class="shrink-0" />
+							<span class="overflow-hidden text-nowrap text-ellipsis">
+								{relatedPosts.older.data.matter.title}
+							</span>
+						</a>
+					{/if}
+					{#if relatedPosts.newer}
+						<a
+							data-align-right={relatedPosts.older == null}
+							href={resolve('/[slug]', { slug: relatedPosts.newer.slug })}
+							class="flex items-center justify-end overflow-hidden text-sm text-fg-muted hover:text-fg-emph data-align-right:ml-auto"
+						>
+							<span class="overflow-hidden text-nowrap text-ellipsis">
+								{relatedPosts.newer.data.matter.title}
+							</span>
+							<IconChevronRight class="shrink-0" />
+						</a>
+					{/if}
+				</div>
+			{/if}
+		</div>
+	</div>
+</footer>
