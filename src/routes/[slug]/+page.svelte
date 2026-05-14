@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 	import { env } from '$env/dynamic/public';
 	import { IconChevronLeft, IconChevronRight } from '$lib/components/icons';
+	import License from '$lib/components/License.svelte';
 	import { viewTransition } from '$lib/dom';
 	import { getPostQuery, getRelatedPostsQuery } from './__page__/page.remote';
 
@@ -112,37 +113,37 @@
 		</div>
 	</div>
 </main>
-<footer>
-	<div class="px-8">
-		<div class="mx-auto max-w-[65ch] border-t border-t-surface-border py-8">
-			{#if relatedPostsQuery.current}
-				{@const relatedPosts = relatedPostsQuery.current}
-				<div class="flex items-center justify-between gap-8">
-					{#if relatedPosts.older}
-						<a
-							href={resolve('/[slug]', { slug: relatedPosts.older.slug })}
-							class="flex items-center overflow-hidden text-sm text-fg-muted hover:text-fg-emph"
-						>
-							<IconChevronLeft class="shrink-0" />
-							<span class="overflow-hidden text-nowrap text-ellipsis">
-								{relatedPosts.older.data.matter.title}
-							</span>
-						</a>
-					{/if}
-					{#if relatedPosts.newer}
-						<a
-							data-align-right={relatedPosts.older == null ? '' : undefined}
-							href={resolve('/[slug]', { slug: relatedPosts.newer.slug })}
-							class="flex items-center justify-end overflow-hidden text-sm text-fg-muted hover:text-fg-emph data-align-right:ml-auto"
-						>
-							<span class="overflow-hidden text-nowrap text-ellipsis">
-								{relatedPosts.newer.data.matter.title}
-							</span>
-							<IconChevronRight class="shrink-0" />
-						</a>
-					{/if}
-				</div>
-			{/if}
-		</div>
+<footer class="p-4">
+	<div class="mx-auto max-w-2xl">
+		<hr class="border-surface-border" />
+		{#if relatedPostsQuery.current}
+			{@const relatedPosts = relatedPostsQuery.current}
+			<div class="mt-4 flex items-center justify-between gap-8">
+				{#if relatedPosts.older}
+					<a
+						href={resolve('/[slug]', { slug: relatedPosts.older.slug })}
+						class="c-link flex items-center overflow-hidden text-sm transition not-hover:text-fg-muted"
+					>
+						<IconChevronLeft class="shrink-0" />
+						<span class="overflow-hidden text-nowrap text-ellipsis">
+							{relatedPosts.older.data.matter.title}
+						</span>
+					</a>
+				{/if}
+				{#if relatedPosts.newer}
+					<a
+						data-align-right={relatedPosts.older == null ? '' : undefined}
+						href={resolve('/[slug]', { slug: relatedPosts.newer.slug })}
+						class="c-link flex items-center justify-end overflow-hidden text-sm transition not-hover:text-fg-muted data-align-right:ml-auto"
+					>
+						<span class="overflow-hidden text-nowrap text-ellipsis">
+							{relatedPosts.newer.data.matter.title}
+						</span>
+						<IconChevronRight class="shrink-0" />
+					</a>
+				{/if}
+			</div>
+		{/if}
+		<License class="mt-8 text-sm text-fg-muted" />
 	</div>
 </footer>

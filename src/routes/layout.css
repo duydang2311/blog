@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+@import '../lib/stylesheets/c-link.css' layer(components);
+
 @theme {
 	--color-surface-1: oklch(100% 0 90);
 	--color-surface: oklch(100% 0 90);

@@ -1,0 +1,9 @@
+.c-link {
+	text-decoration: underline;
+	text-decoration-color: var(--color-fg-muted);
+	text-underline-offset: --spacing(0.5);
+	&:where(:hover) {
+		color: var(--color-fg-emph);
+		text-decoration-color: var(--color-fg-emph);
+	}
+}
