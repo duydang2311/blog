@@ -122,7 +122,7 @@
 				{#if relatedPosts.older}
 					<a
 						href={resolve('/[slug]', { slug: relatedPosts.older.slug })}
-						class="c-link flex items-center overflow-hidden text-sm transition not-hover:text-fg-muted"
+						class="flex items-center overflow-hidden text-sm transition not-hover:text-fg-muted"
 					>
 						<IconChevronLeft class="shrink-0" />
 						<span class="overflow-hidden text-nowrap text-ellipsis">
@@ -134,7 +134,7 @@
 					<a
 						data-align-right={relatedPosts.older == null ? '' : undefined}
 						href={resolve('/[slug]', { slug: relatedPosts.newer.slug })}
-						class="c-link flex items-center justify-end overflow-hidden text-sm transition not-hover:text-fg-muted data-align-right:ml-auto"
+						class="flex items-center justify-end overflow-hidden text-sm transition not-hover:text-fg-muted data-align-right:ml-auto"
 					>
 						<span class="overflow-hidden text-nowrap text-ellipsis">
 							{relatedPosts.newer.data.matter.title}
