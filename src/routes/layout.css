@@ -78,7 +78,7 @@
 	--tw-prose-body: var(--color-fg);
 	--tw-prose-headings: var(--color-fg-emph);
 	--tw-prose-lead: var(--color-fg);
-	--tw-prose-links: var(--color-fg-emph);
+	--tw-prose-links: var(--color-fg);
 	--tw-prose-bold: var(--color-fg-emph);
 	--tw-prose-counters: var(--color-fg-muted);
 	--tw-prose-bullets: var(--color-fg-muted);
@@ -170,6 +170,24 @@
 
 	:where(strong):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		font-weight: 500;
+	}
+
+	:where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		font-weight: 400;
+		text-decoration: underline;
+		text-decoration-color: var(--color-fg-muted);
+		text-underline-offset: --spacing(0.5);
+		&:where(:hover) {
+			color: var(--color-fg-emph);
+			text-decoration-color: var(--color-fg-emph);
+		}
+	}
+
+	:where(:is(h1, h2, h3, h4, h5, h6) > a):not(
+		:where([class~='not-prose'], [class~='not-prose'] *)
+	) {
+		font-weight: 600;
+		color: inherit;
 	}
 }
 
