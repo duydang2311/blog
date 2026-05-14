@@ -5,8 +5,7 @@ import { error } from '@sveltejs/kit';
 export const getPostQuery = prerender(
 	'unchecked',
 	async (data) => {
-		const slug = data as string;
-		const post = await getPost(slug);
+		const post = await getPost(data);
 		if (!post) {
 			return error(404);
 		}
@@ -20,8 +19,7 @@ export const getPostQuery = prerender(
 export const getRelatedPostsQuery = prerender(
 	'unchecked',
 	(data) => {
-		const slug = data as string;
-		const post = getRelatedPosts(slug);
+		const post = getRelatedPosts(data);
 		if (!post) {
 			return error(404);
 		}
